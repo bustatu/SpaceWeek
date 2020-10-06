@@ -10,6 +10,7 @@
     <sprite>sprites\spr_fullscreen</sprite>
     <sprite>sprites\spr_solarsystem</sprite>
     <sprite>sprites\spr_satellite</sprite>
+    <sprite>sprites\spr_moon</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

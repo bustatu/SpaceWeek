@@ -52,14 +52,14 @@ planet[6].radius = 150
 planet[7].radius = 65
 planet[8].radius = 65
 
-planet_speed[1] = 360 / 88
-planet_speed[2] = 360 / 224
-planet_speed[3] = 360 / 365
-planet_speed[4] = 360 / 686
-planet_speed[5] = 360 / 1100
-planet_speed[6] = 360 / 2942
-planet_speed[7] = 360 / 5884
-planet_speed[8] = 360 / 11768
+planet_speed[1] = 360 / 88    * 4
+planet_speed[2] = 360 / 224   * 4
+planet_speed[3] = 360 / 365   * 4
+planet_speed[4] = 360 / 625   * 4
+planet_speed[5] = 360 / 1250  * 4
+planet_speed[6] = 360 / 2500  * 4
+planet_speed[7] = 360 / 5000  * 4
+planet_speed[8] = 360 / 10000 * 4
 
 global_scale = 1
 
@@ -71,6 +71,9 @@ for(var i = 2; i &lt;= planet_orbit[0]; i++)
     { planet_angle[i] = planet_angle[i - 1] + random(90) - 45; }
     
 onClickPhase = false
+
+lmp_x = 0
+lmp_y = 0
 </string>
           </argument>
         </arguments>
@@ -97,24 +100,41 @@ onClickPhase = false
 
 if(!obj_solar_system.onClickPhase)
 {
-    offset_x = obj_stars.x
-    offset_y = obj_stars.y
+    if(btn_inst == -1)
+    {
+        offset_x = obj_stars.x
+        offset_y = obj_stars.y
+    }
+    else if(!instance_exists(obj_planet_inspect))
+    {
+        if(mouse_check_button(mb_left))
+        {
+            offset_x = clamp(offset_x + mouse_x - lmp_x, - room_width / 2, room_width / 2)
+            offset_y = clamp(offset_y + mouse_y - lmp_y, - room_height / 2, room_height / 2)
+        }
+    }
+    
+    lmp_x = mouse_x
+    lmp_y = mouse_y
 }
 else {
-    offset_x = offset_y = 0
-    if(distance_to_point(room_width / 2, room_height / 2 + 150) &gt;= adelta_time * 1000)
-        move_towards_point(room_width / 2, room_height / 2 + 150, adelta_time * 1000)
+    if(distance_to_point(room_width / 2, room_height / 2) &gt;= adelta_time * 1000)
+        move_towards_point(room_width / 2, room_height / 2, adelta_time * 1000)
     else
     {
         x = room_width / 2
-        y = room_height / 2 + 150
+        y = room_height / 2
         speed = 0
-        if(global_scale &gt; 0.45)
-            global_scale -= adelta_time * 0.8
-        else
-            global_scale = 0.45
+        if(onClickPhase)
+            if(global_scale &gt; 0.45)
+                global_scale -= adelta_time * 0.8
+            else
+            {
+                global_scale = 0.45
+                onClickPhase = false
+            }
     }
-    
+
     if(btn_inst == -1)
     {
         btn_inst = instance_create(1700, 1000, obj_button)
@@ -124,11 +144,71 @@ else {
         btn_inst.height = 100
         btn_inst.border_width = 2
         btn_inst.click = restart_room
+        
+        offset_x = 0
+        offset_y = 0
     }
 }
 
 for(var i = 1; i &lt;= planet_orbit[0]; i++)
     planet_angle[i] += planet_speed[i] * adelta_time
+  
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="61">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Zoom
+
+if(global_scale &gt; 0.3)
+    if(!(distance_to_point(room_width / 2, room_height / 2) &gt;= adelta_time * 1000))
+        if(btn_inst != -1)
+            global_scale -= 5 * adelta_time
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="60">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Zoom
+
+if(global_scale &lt; 3)
+    if(!(distance_to_point(room_width / 2, room_height / 2) &gt;= adelta_time * 1000))
+        if(btn_inst != -1)
+            global_scale += 5 * adelta_time
 </string>
           </argument>
         </arguments>

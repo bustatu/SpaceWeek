@@ -29,6 +29,8 @@
 
 image_speed = 0
 image_index = 3
+image_xscale = 0.5
+image_yscale = 0.5
 
 angle = 0
 </string>
@@ -81,15 +83,27 @@ angle += adelta_time * 90
             <string>///Draw
 
 angle %= 360
+sprite_to_draw = spr_satellite
+
+if(instance_exists(obj_planet_inspect))
+    sprite_to_draw = spr_moon
 
 if(dsin(angle) &lt; 0)
 {
     draw_self()
-    draw_sprite_ext(spr_satellite, 0, x + dcos(angle) * 150, y + dsin(angle) * 15, 1 / 5, 1 / 5, angle, c_white, 1)
+    
+    if(sprite_to_draw == spr_moon)
+        draw_sprite_ext(sprite_to_draw, 0, x + dcos(angle) * 300 * image_xscale, y + dsin(angle) * 50 * image_yscale, (2 / 5) * image_xscale, (2 / 5) * image_yscale, 0, c_white, 1)
+    else
+        draw_sprite_ext(sprite_to_draw, 0, x + dcos(angle) * 300 * image_xscale, y + dsin(angle) * 50 * image_yscale, (2 / 5) * image_xscale, (2 / 5) * image_yscale, angle, c_white, 1)
 }
 else
 {
-    draw_sprite_ext(spr_satellite, 0, x + dcos(angle) * 150, y + dsin(angle) * 15, 1 / 5, 1 / 5, angle, c_white, 1)
+    if(sprite_to_draw == spr_moon)
+        draw_sprite_ext(sprite_to_draw, 0, x + dcos(angle) * 300 * image_xscale, y + dsin(angle) * 50 * image_yscale, (2 / 5) * image_xscale, (2 / 5) * image_yscale, 0, c_white, 1)
+    else 
+        draw_sprite_ext(sprite_to_draw, 0, x + dcos(angle) * 300 * image_xscale, y + dsin(angle) * 50 * image_yscale, (2 / 5) * image_xscale, (2 / 5) * image_yscale, angle, c_white, 1)
+    
     draw_self()
 }
 </string>

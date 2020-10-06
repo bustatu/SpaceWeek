@@ -3,7 +3,7 @@
   <spriteName>spr_solarsystem</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -55,7 +55,7 @@ disabled = false
             <kind>1</kind>
             <string>///Step
 
-if(obj_solar_system.onClickPhase == true &amp;&amp; !disabled)
+if(obj_solar_system.btn_inst != -1 &amp;&amp; !disabled)
 {
     if(point_distance(mouse_x, mouse_y, x, y) &lt;= radius * obj_solar_system.global_scale / 2)
         if(mouse_check_button_pressed(mb_left))
@@ -90,8 +90,12 @@ if(obj_solar_system.onClickPhase == true &amp;&amp; !disabled)
 
 draw_sprite_ext(spr_solarsystem, image_index, x, y, radius / 300 * obj_solar_system.global_scale, radius / 300 * obj_solar_system.global_scale, 0, c_white, 1)
 
-if(obj_solar_system.onClickPhase == true)
+if(obj_solar_system.btn_inst != -1)
 {
+    draw_set_alpha(0.2)
+    draw_set_color(c_black)
+    draw_circle(x, y, radius * obj_solar_system.global_scale / 2, true)
+    draw_set_alpha(1)
     draw_set_color(c_white)
     draw_circle(x, y, radius * obj_solar_system.global_scale / 2, true)
 }

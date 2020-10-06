@@ -63,7 +63,7 @@ for(var i = 1; i &lt;= 2 * offsets[0]; i += 2)
             <kind>1</kind>
             <string>///Step
 
-if(room != r_menu || !obj_solar_system.onClickPhase)
+if(room != r_menu || obj_solar_system.btn_inst == -1)
 {
     x = (mouse_x - room_width / 2) / 8 - 0.25 * room_width / 2
     y = (mouse_y - room_height / 2) / 8  - 0.25 * room_height / 2
