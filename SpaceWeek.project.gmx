@@ -11,6 +11,7 @@
     <sprite>sprites\spr_solarsystem</sprite>
     <sprite>sprites\spr_satellite</sprite>
     <sprite>sprites\spr_moon</sprite>
+    <sprite>sprites\wsw_2020</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -61,6 +62,7 @@
     <objects name="Orbit">
       <object>objects\obj_earth</object>
     </objects>
+    <object>objects\obj_wsw</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_menu</room>
